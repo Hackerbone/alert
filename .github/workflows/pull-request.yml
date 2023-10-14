@@ -3,7 +3,7 @@ name: 'Build & Test on PR'
 on:
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-test:
