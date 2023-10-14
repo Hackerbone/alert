@@ -1,4 +1,4 @@
-name: Build & Test on PR
+name: 'Build & Test on PR'
 
 on:
   pull_request:
@@ -10,17 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
       
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '18'
           
       - name: Setup PNPM
-      - uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: '8'
           
       - name: Install dependencies
         run: pnpm install
@@ -30,6 +30,3 @@ jobs:
 
       - name: Building project
         run: pnpm run build
-      
-
-
