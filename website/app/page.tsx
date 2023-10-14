@@ -8,10 +8,10 @@ export default function App() {
       <Toaster />
       <div className="flex gap-4">
         <Button variant="secondary" onClick={() => toast('This is a default toast')}>
-          Default
+          Default Toast
         </Button>
         <Button variant="secondary" onClick={() => toast.success('This is a success toast')}>
-          Success
+          Success Toast
         </Button>
       </div>
     </div>
