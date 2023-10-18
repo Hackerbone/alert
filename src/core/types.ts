@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type ToastType = 'default' | 'success';
+export type ToastType = 'default' | 'success' | 'error' ;
 
 export type ToasterPosition =
   | 'top-left'
@@ -15,6 +15,7 @@ export type ToastState = 'enter' | 'idle' | 'leave';
 export interface ToasterProps {
   position?: ToasterPosition;
   duration?: number;
+  reverse?: boolean;
   style?: React.CSSProperties;
   className?: string;
 }
@@ -27,5 +28,6 @@ export interface IToast {
   id: number;
   state: ToastState;
   type: ToastType;
+  zIndex: number;
   title?: string;
 }

@@ -1,8 +1,7 @@
-'use client';
 import React from 'react';
 import { ToastProps } from '../core/types';
 import '../core/styles.css';
-import { SuccessIcon } from './assets';
+import { ErrorIcon, SuccessIcon } from './assets';
 
 const Toast = ({ toast }: ToastProps) => {
   return (
@@ -19,7 +18,7 @@ const Toast = ({ toast }: ToastProps) => {
         fontSize: '0.875rem',
         lineHeight: '1.25rem',
         color: 'rgb(17, 24, 39)',
-        zIndex: toast.id,
+        zIndex: toast.zIndex,
         display: 'flex',
         gap: 4,
         minWidth: 220,
@@ -27,6 +26,7 @@ const Toast = ({ toast }: ToastProps) => {
       key={toast.id}
     >
       {toast.type === 'success' && SuccessIcon}
+      {toast.type === 'error' && ErrorIcon}
       {toast.title}
     </div>
   );
