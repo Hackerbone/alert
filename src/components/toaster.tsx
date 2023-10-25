@@ -3,10 +3,22 @@ import { IToast, ToastState, ToasterProps } from '../core/types';
 import { Store } from '../core/store';
 import { Toast } from './toast';
 
-const Toaster = ({ position = 'bottom-right', duration = 3000, reverse = false, style, className }: ToasterProps) => {
+/**
+ * Toaster component for displaying toast notifications.
+ * @param {object} ToasterProps - Props for configuring the toaster.
+ * @returns {JSX.Element} - A component for displaying toast notifications.
+ */
+const Toaster = ({
+  position = 'bottom-right',
+  duration = 3000,
+  reverse = false,
+  theme = 'light',
+  style,
+  className,
+}: ToasterProps) => {
   const [toasts, setToasts] = useState<IToast[]>([]);
   const [positionState, setPositionState] = useState<React.CSSProperties>({});
-
+  const [height, setHeight] = useState(0);
   useEffect(() => {
     const unsubscribe = Store.subscribe((toast) => {
       setToasts((toasts) => [...toasts, toast]);
@@ -25,6 +37,10 @@ const Toaster = ({ position = 'bottom-right', duration = 3000, reverse = false, 
       [x]: 0,
     });
   }, [position]);
+
+  useEffect(() => {
+    setHeight(toasts.length * 41);
+  }, [toasts]);
 
   function handleToast(toast: IToast) {
     setTimeout(() => updateToastState(toast, 'idle'), 300);
@@ -51,20 +67,21 @@ const Toaster = ({ position = 'bottom-right', duration = 3000, reverse = false, 
   return (
     <section
       style={{
-        position: 'absolute',
-        overflow: 'hidden',
+        position: 'fixed',
+        zIndex: 9999,
         display: 'flex',
         flexDirection: 'column',
         gap: 5,
-        padding: 20,
+        margin: 16,
         transform: 'translateY(0)',
-        height: 'fit-content',
+        height: height,
         transition: 'all 230ms cubic-bezier(.21, 1.02, .73, 1)',
         ...positionState,
       }}
     >
+      {position.startsWith('bottom') && !reverse && <div className="flex h-full w-full grow" />}
       {reversedToasts.map((toast, index) => (
-        <Toast key={index} toast={{ ...toast, zIndex: index }} />
+        <Toast key={index} toast={{ ...toast, zIndex: index, theme }} />
       ))}
     </section>
   );
